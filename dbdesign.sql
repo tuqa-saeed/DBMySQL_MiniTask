@@ -177,3 +177,52 @@ ALTER TABLE `enrollments`
   ADD CONSTRAINT `enrollments_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE;
 COMMIT;
 
+SELECT * FROM students;
+
+SELECT COUNT(*) AS total_courses FROM courses;
+
+
+SELECT s.first_name, s.last_name 
+FROM students s
+JOIN enrollments e ON s.student_id = e.student_id
+WHERE e.course_id = 1;  
+
+SELECT email 
+FROM instructors
+WHERE department = 'Computer Science';  
+
+
+
+SELECT c.course_name, COUNT(e.student_id) AS num_students
+FROM courses c
+LEFT JOIN enrollments e ON c.course_id = e.course_id
+GROUP BY c.course_id;
+
+SELECT s.first_name, s.last_name, c.course_name, e.grade
+FROM students s
+JOIN enrollments e ON s.student_id = e.student_id
+JOIN courses c ON e.course_id = c.course_id
+WHERE e.grade = 'A';
+
+SELECT c.course_name, i.first_name AS instructor_first_name, i.last_name AS instructor_last_name
+FROM courseassignments ca
+JOIN courses c ON ca.course_id = c.course_id
+JOIN instructors i ON ca.instructor_id = i.instructor_id
+WHERE ca.semester = 'Summer' AND ca.year = 2025;  
+
+SELECT c.course_name, AVG(
+    CASE 
+        WHEN e.grade = 'A' THEN 4.0
+        WHEN e.grade = 'B+' THEN 3.5
+        WHEN e.grade = 'B' THEN 3.0
+        WHEN e.grade = 'C+' THEN 2.5
+        WHEN e.grade = 'C' THEN 2.0
+        WHEN e.grade = 'D+' THEN 1.5
+        WHEN e.grade = 'D' THEN 1.0
+        WHEN e.grade = 'F' THEN 0.0
+        ELSE NULL 
+    END
+) AS average_grade
+FROM courses c
+JOIN enrollments e ON c.course_id = e.course_id
+WHERE c.course_id = 1; 

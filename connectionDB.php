@@ -1,19 +1,13 @@
-<?php 
-$server = "localhost";
-$username = "your_username";
-$password = "your_password";
-$db = "dbdesign";
+<?php
+$servername = "localhost";  
+$username = "username";     
+$password = "password";     
+$dbname = "dbdesign";  
 
-$conn = mysqli_connect($server, $username, $password); 
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-$select_db = mysqli_select_db($conn, $db); 
-
-if (!$select_db) {
-    die "Error selecting database: " . mysqli_error($conn);
-}
-echo "Database selected successfully";
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+echo "Connected successfully";
 ?>
