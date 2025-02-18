@@ -118,32 +118,32 @@ ALTER TABLE `enrollments`
   ADD CONSTRAINT `enrollments_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE;
 
 INSERT INTO instructors (first_name, last_name, email, hire_date, department) VALUES
-('Alice', 'Johnson', 'alice.johnson@example.com', '2015-08-21', 'Computer Science'),
-('Bob', 'Smith', 'bob.smith@example.com', '2012-06-15', 'Mathematics'),
-('Charlie', 'Brown', 'charlie.brown@example.com', '2018-01-10', 'Physics'),
-('David', 'Wilson', 'david.wilson@example.com', '2020-09-05', 'Engineering'),
-('Eve', 'Taylor', 'eve.taylor@example.com', '2017-03-22', 'Biology');
+('tuqa', 'saeed', 'tuqa.saeed@gmail.com', '2015-08-21', 'Computer Science'),
+('ruaa', 'saeed', 'ruaa.saeed@gmail.com', '2012-06-15', 'Mathematics'),
+('moaad', 'saeed', 'moaad.saeed@gmail.com', '2018-01-10', 'Physics'),
+('qusai', 'saeed', 'qusai.saeed@gmail.com', '2020-09-05', 'Engineering'),
+('mohammed', 'saeed', 'mohammed.saeed@gmail.com', '2017-03-22', 'Biology');
 
 INSERT INTO courses (course_name, course_code, credits, department) VALUES
 ('Introduction to Programming', 'CS101', 3, 'Computer Science'),
-('Calculus I', 'MATH101', 4, 'Mathematics'),
-('Physics for Engineers', 'PHYS201', 3, 'Physics'),
+('Calculus II', 'MATH101', 4, 'Mathematics'),
+('Physics ', 'PHYS201', 3, 'Physics'),
 ('Digital Circuits', 'ENGR102', 3, 'Engineering'),
-('Molecular Biology', 'BIO103', 3, 'Biology');
+(' Biology', 'BIO103', 3, 'Biology');
 
 INSERT INTO courseassignments (instructor_id, course_id, semester, year) VALUES
-(1, 1, 'Fall', 2025),
-(2, 2, 'Spring', 2025),
+(1, 1, 'Summer', 2025),
+(2, 2, 'Summer', 2025),
 (3, 3, 'Summer', 2025),
 (4, 4, 'Winter', 2025),
 (5, 5, 'Fall', 2025);
 
 INSERT INTO students (first_name, last_name, email, date_of_birth, gender, major, enrollment_year) VALUES
-('John', 'Doe', 'john.doe@example.com', '2002-05-14', 'Male', 'Computer Science', 2022),
-('Jane', 'Smith', 'jane.smith@example.com', '2001-08-22', 'Female', 'Mathematics', 2021),
-('Sam', 'Williams', 'sam.williams@example.com', '2003-02-10', 'Male', 'Physics', 2023),
-('Emily', 'Davis', 'emily.davis@example.com', '2000-11-30', 'Female', 'Engineering', 2020),
-('Michael', 'Brown', 'michael.brown@example.com', '2002-09-18', 'Male', 'Biology', 2022),
+('moaad', 'saeed', 'moaad.saeed@gmail.com', '2002-05-14', 'Male', 'Computer Science', 2022),
+('tuqa', 'saeed', 'tuqa.saeed@gmail.com', '2001-08-22', 'Female', 'Mathematics', 2021),
+('qusai', 'saeed', 'qusai.saeed@gmail.com', '2003-02-10', 'Male', 'Physics', 2023),
+('ruaa', 'saeed', 'ruaa.saeed@gmail.com', '2000-11-30', 'Female', 'Engineering', 2020),
+('mohammed', 'saeed', 'mohammed.saeed@gmail.com', '2002-09-18', 'Male', 'Biology', 2022),
 ('Sarah', 'Wilson', 'sarah.wilson@example.com', '2001-06-25', 'Female', 'Computer Science', 2021),
 ('Daniel', 'Lee', 'daniel.lee@example.com', '2003-03-15', 'Male', 'Mathematics', 2023),
 ('Laura', 'Martinez', 'laura.martinez@example.com', '2002-07-09', 'Female', 'Physics', 2022),
