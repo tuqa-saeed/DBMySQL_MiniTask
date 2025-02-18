@@ -1,10 +1,4 @@
 
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
 CREATE TABLE `courseassignments` (
   `assignment_id` int(11) NOT NULL,
   `instructor_id` int(11) DEFAULT NULL,
