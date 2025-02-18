@@ -226,3 +226,56 @@ SELECT c.course_name, AVG(
 FROM courses c
 JOIN enrollments e ON c.course_id = e.course_id
 WHERE c.course_id = 1; 
+
+
+
+SELECT s.first_name, s.last_name, COUNT(e.course_id) AS num_courses
+FROM students s
+JOIN enrollments e ON s.student_id = e.student_id
+JOIN courseassignments ca ON e.course_id = ca.course_id
+WHERE ca.semester = 'Spring' AND ca.year = 2025 
+GROUP BY s.student_id
+HAVING COUNT(e.course_id) > 3;
+
+SELECT s.first_name, s.last_name, c.course_name, e.grade
+FROM students s
+JOIN enrollments e ON s.student_id = e.student_id
+JOIN courses c ON e.course_id = c.course_id
+WHERE e.grade IS NULL;
+
+
+SELECT s.first_name, s.last_name, AVG(
+    CASE 
+        WHEN e.grade = 'A' THEN 4.0
+        WHEN e.grade = 'B+' THEN 3.5
+        WHEN e.grade = 'B' THEN 3.0
+        WHEN e.grade = 'C+' THEN 2.5
+        WHEN e.grade = 'C' THEN 2.0
+        WHEN e.grade = 'D+' THEN 1.5
+        WHEN e.grade = 'D' THEN 1.0
+        WHEN e.grade = 'F' THEN 0.0
+        ELSE NULL 
+    END
+) AS average_grade
+FROM students s
+JOIN enrollments e ON s.student_id = e.student_id
+GROUP BY s.student_id
+ORDER BY average_grade DESC
+LIMIT 1;
+
+
+SELECT c.department, COUNT(c.course_id) AS num_courses
+FROM courses c
+JOIN courseassignments ca ON c.course_id = ca.course_id
+WHERE ca.year = 2025  
+ORDER BY num_courses DESC
+LIMIT 1;
+
+
+SELECT c.course_name
+FROM courses c
+LEFT JOIN enrollments e ON c.course_id = e.course_id
+WHERE e.student_id IS NULL;
+
+
+
