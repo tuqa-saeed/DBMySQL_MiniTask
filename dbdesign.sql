@@ -336,4 +336,24 @@ JOIN courses c ON e.course_id = c.course_id
 GROUP BY c.department;
 
 
+SELECT 
+    s.first_name AS student_first_name, 
+    s.last_name AS student_last_name, 
+    s.email AS student_email, 
+    s.major, 
+    c.course_name, 
+    c.course_code, 
+    c.credits, 
+    CONCAT(i.first_name, ' ', i.last_name) AS instructor_name, 
+    e.grade, 
+    (SELECT SUM(c2.credits) 
+     FROM enrollments e2 
+     JOIN courses c2 ON e2.course_id = c2.course_id 
+     WHERE e2.student_id = s.student_id) AS total_credits
+FROM students s
+LEFT JOIN enrollments e ON s.student_id = e.student_id
+LEFT JOIN courses c ON e.course_id = c.course_id
+LEFT JOIN courseassignments ca ON c.course_id = ca.course_id
+LEFT JOIN instructors i ON ca.instructor_id = i.instructor_id
+ORDER BY s.student_id, c.course_name;
 
