@@ -279,3 +279,61 @@ WHERE e.student_id IS NULL;
 
 
 
+DELIMITER //
+CREATE FUNCTION get_student_age(dob DATE) RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE age INT;
+    SET age = TIMESTAMPDIFF(YEAR, dob, CURDATE());
+    RETURN age;
+END;
+//
+DELIMITER ;
+
+SELECT first_name, last_name, get_student_age(date_of_birth) AS age FROM students;
+
+
+DELIMITER //
+CREATE PROCEDURE enroll_student(IN student_id INT, IN course_id INT)
+BEGIN
+    DECLARE student_exists INT;
+    DECLARE course_exists INT;
+
+    SELECT COUNT(*) INTO student_exists FROM students WHERE students.student_id = student_id;
+
+    SELECT COUNT(*) INTO course_exists FROM courses WHERE courses.course_id = course_id;
+
+    IF student_exists > 0 AND course_exists > 0 THEN
+        INSERT INTO enrollments (student_id, course_id) VALUES (student_id, course_id);
+        SELECT 'Student enrolled successfully' AS message;
+    ELSE
+        SELECT 'Error: Student or Course not found' AS message;
+    END IF;
+END;
+//
+DELIMITER ;
+
+
+
+
+CALL enroll_student(1, 3);
+SELECT c.department, 
+       AVG(
+           CASE 
+               WHEN e.grade = 'A' THEN 4.0
+               WHEN e.grade = 'B+' THEN 3.5
+               WHEN e.grade = 'B' THEN 3.0
+               WHEN e.grade = 'C+' THEN 2.5
+               WHEN e.grade = 'C' THEN 2.0
+               WHEN e.grade = 'D+' THEN 1.5
+               WHEN e.grade = 'D' THEN 1.0
+               WHEN e.grade = 'F' THEN 0.0
+               ELSE NULL 
+           END
+       ) AS average_gpa
+FROM enrollments e
+JOIN courses c ON e.course_id = c.course_id
+GROUP BY c.department;
+
+
+
